@@ -1,16 +1,16 @@
-version: "3.9"
+version: '3'
 services:
   angular-app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "80:80" 
+      - "8080:80"
     volumes:
-      - .:/app 
-      - /app/node_modules 
-      - /app/dist:/var/www/html 
+      - .:/app
+      - /app/node_modules
     command: >
       sh -c "npm install &&
-             ng build --watch --configuration development &&
+             ng build --configuration production &&
+             cp -r /app/dist/examen-carrion-diego/browser/* /var/www/html/ &&
              apachectl -D FOREGROUND"
